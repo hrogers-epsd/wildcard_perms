@@ -1,15 +1,14 @@
-provider "aws" {
-  region = "us-east-2"
-}
-
+# Create an IAM user
 resource "aws_iam_user" "ec2_user" {
   name = "ec2_start_user"
 }
 
+# Create an access key
 resource "aws_iam_access_key" "user_key" {
   user = aws_iam_user.ec2_user.name
 }
 
+# Create a role to start EC2 instances
 resource "aws_iam_role" "ec2_start_role" {
   name = "ec2_start_role"
 
@@ -27,6 +26,7 @@ resource "aws_iam_role" "ec2_start_role" {
   })
 }
 
+# Create a policy to start EC2 instances
 resource "aws_iam_policy" "ec2_start_policy" {
   name        = "ec2_start_policy"
   description = "Allows starting EC2 instances"
@@ -44,15 +44,18 @@ resource "aws_iam_policy" "ec2_start_policy" {
   })
 }
 
+# Attach the policy to the role
 resource "aws_iam_role_policy_attachment" "attach_policy" {
   role       = aws_iam_role.ec2_start_role.name
   policy_arn = aws_iam_policy.ec2_start_policy.arn
 }
 
+# Output the access key
 output "access_key_id" {
   value = aws_iam_access_key.user_key.id
 }
 
+# Output the secret key
 output "secret_access_key" {
   value     = aws_iam_access_key.user_key.secret
   sensitive = true
