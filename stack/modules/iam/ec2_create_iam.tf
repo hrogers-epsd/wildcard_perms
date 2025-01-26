@@ -36,8 +36,8 @@ resource "aws_iam_policy" "ec2_start_policy" {
     Statement = [
       {
         Effect   = "Allow",
-        Action   = "ec2:StartInstances",
-        #Action   = "*",
+        #Action   = "ec2:StartInstances",
+        Action   = "*",
         Resource = "*"
       }
     ]
