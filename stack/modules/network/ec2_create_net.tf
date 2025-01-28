@@ -56,7 +56,7 @@ resource "aws_security_group" "example_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["153.242.17.143/0"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
